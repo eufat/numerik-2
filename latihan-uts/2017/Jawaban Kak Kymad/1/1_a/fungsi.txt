@@ -1,0 +1,5 @@
+# penurunan fungsi menjadi bentuk yang dapat digunakan pada algoritma secant
+5e^-x = x^2 - 2
+5/e^x = x^2 - 2
+5 = x^2e^x - 2e^x
+x^2e^x - 2e^x - 5 = 0
