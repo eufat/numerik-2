@@ -1,7 +1,7 @@
 	program interpolasi_lagrange
 	implicit none
 	integer, parameter :: N=10,M=100
-	integer :: i,j,k,Np
+	integer :: i,j,k,Np,S
 	character*50 :: datafile,outputfile
 	real*8 :: xd(N),f(N)
 	real*8 :: x(M),p(M),dx,sum,prod,II(M,N)
@@ -31,18 +31,36 @@
 !	Perhitungan p(x)
 	do k=1,M
 		sum=0.d0
-		do i=1,N
-			prod=1.d0
-			do j=1,N
-				if (j==i) then
-					cycle
-				else
-					prod=prod*(x(k)-xd(j))/(xd(i)-xd(j))
-				end if
-			end do	!j
-			II(k,i)=prod
-			sum=sum+II(k,i)*f(i)
-		end do !i
+
+		! Gunakan interpolasi linier pada ujung kiri dan kanan digunakan interpolasi linier
+		! Jika selain itu gunakan interpolasi kubik (1-4) karena fortran terindeks dari 1
+		if (k==1 .OR. k==(M-1)) then
+			do i=1,1
+				prod=1.d0
+				do j=1,1
+					if (j==i) then
+						cycle
+					else
+						prod=prod*(x(k)-xd(j))/(xd(i)-xd(j))
+					end if
+				end do	!j
+				II(k,i)=prod
+				sum=sum+II(k,i)*f(i)
+			end do !i
+		else
+			do i=1,4
+				prod=1.d0
+				do j=1,4
+					if (j==i) then
+						cycle
+					else
+						prod=prod*(x(k)-xd(j))/(xd(i)-xd(j))
+					end if
+				end do	!j
+				II(k,i)=prod
+				sum=sum+II(k,i)*f(i)
+			end do !i
+		end if
 		p(k)=sum
 		write(20,*) x(k),p(k)
 	end do

@@ -9,7 +9,7 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 
 	N = N_
 	M = M_
-	
+
 	allocate(A(N,N))
 	allocate(L(N,N))
 	allocate(U(N,N))
@@ -19,21 +19,21 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 	allocate(Ls(N))
 	allocate(As(N))
 	allocate(Bs(M))
-	
+
 	A=A_
 	B=B_
 	X=X_
-	 
+
 	U=0.0
 	do i=1,N
 		U(i,i) = 1.0
 	end do
-	
+
 	L=0.0
-	
+
 	do p=1,N
 		j=p
-		
+
 			do i=j,N
 				if(j==1) then
 					L(i,1) = A(i,1)
@@ -45,22 +45,22 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 					L(i,j) = A(i,j) - sum
 				end if
 			end do
-		
+
 		if (L(p,p) == 0.0) then
 			Ls(:) = L(p,:)
 			L(p,:) = L(p+1,:)
 			L(p+1,:) = Ls(:)
-			
+
 			As(:) = A(p,:)
 			A(p,:) = A(p+1,:)
 			A(p+1,:) = As(:)
-			
+
 			Bs(:) = B(p,:)
 			B(p,:) = B(p+1,:)
 			B(p+1,:) = Bs(:)
-			
+
 		end if
-		
+
 		i=p
 		do j=i,N
 			if(i==1) then
@@ -73,13 +73,13 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 				U(i,j) = (A(i,j)-sum)/L(i,i)
 			end if
 		end do
-	
+
 	end do
-	
+
 	do r=1,M
 		Y(1,r) = B(1,r)/L(1,1)
 	end do
-	
+
 	do r=1,M
 		do i=2,N
 			sum=0.0
@@ -89,11 +89,11 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 			Y(i,r) = (B(i,r)-sum)/L(i,i)
 		end do
 	end do
-	
+
 	do r=1,M
 		X(N,r) = Y(N,r)
 	end do
-	
+
 	do r=1,M
 		do i=1,N-1
 			sum =0.0
@@ -105,27 +105,27 @@ subroutine ludcmp_m(N_,M_,A_,B_,X_)
 	end do
 	!	Tulis ke layar
 	write(*,*) "===Hasil Dekomposisi LU==="
-	write(*,*) 	
+	write(*,*)
 	write(*,*) "Matriks L: "
 	do i=1,N
 		write(*,*) (L(i,j), j=1,N)
 	end do
-	
-	write(*,*) 
+
+	write(*,*)
 	write(*,*) "Matriks U: "
 	do i=1,N
 		write(*,*) (U(i,j), j=1,N)
 	end do
-	
+
 	write(*,*)
 	write(*,*) "Matriks Y:"
 	do i=1,N
 		write(*,*) (L(i,j), j=1,M)
 	end do
-	
-	
+
+
 	X_ = X
-	
+
 	deallocate(A)
 	deallocate(L)
 	deallocate(U)
