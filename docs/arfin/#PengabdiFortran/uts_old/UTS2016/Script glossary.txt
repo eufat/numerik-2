@@ -1,0 +1,43 @@
+Akar Fungsi :
+~ bisection
+~ false position
+~ newton raphson
+~ secant
+
+Sistem Persamaan Linear :
+~ ElGauss
+~ LUDecomp
+
+~ Regresi
+
+~ Interpolasi Lagrange
+~ Interpolasi Lagrange Kubik
+~ Interpolasi Hermite Kubik
+
+~ Interpolasi Lagrange (coef)		x
+~ Interpolasi Lagrange Kubik (coef)	x	
+~ Interpolasi Hermite Kubik (coef)	x
+
+~ Integral Simpson
+~ Integral Trapezoid
+
+SUBROUTINE :
+~ bisection
+~ false position
+~ newton raphson
+~ secant
+~ ElGauss
+~ LUDecomp
+~ Regresi (matrix generating, with normal index)
+
+~ Interpolasi Lagrange (single value estimation)
+~ Interpolasi Lagrange Kubik (single value estimation)
+~ Interpolasi Hermite Kubik (single value estimation)
+
+~ Interpolasi Lagrange (single value coef)
+~ Interpolasi Lagrange Kubik (single value coef)
+~ Interpolasi Hermite Kubik (single value coef)
+
+~ Integral Simpson (x and w generating)
+~ Integral Trapezoid (x and w generating)
+

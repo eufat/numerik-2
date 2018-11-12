@@ -1,0 +1,36 @@
+(Gambar 1) 
+>> Misal, pada sebuah program kita menggunakan subroutine berikut :
+bisection, false position, secant, newton raphson
+
+(Gambar 2) 
+>> Pastikan main program dan subroutine yang hendak digunakan telah berada dalam satu folder
+
+>> Klik pada Addres Bar hingga berubah menjadi biru dan dapat diedit
+
+(Gambar 3) 
+>> Ketik cmd, kemudian tekan enter
+
+(Gambar 4) 
+>> akan muncul window command prompt
+
+(Gambar 5) 
+>> untuk melakukan kompilasi program (agar dapat dijalankan), ketik dengan format berikut di cmd :
+
+g95 -o nama_file_output nama_file_subroutine1 nama_file_subroutine2 .. dst nama_file_main_program
+
+NAMA FILENYA YA! BUKAN NAMA SUBROUTINE ATAU NAMA PROGRAMMNYA!
+
+>> tekan enter
+>> bila tidak ada error, panggil file outputnya
+>> misal nama_output
+
+>> Maka akan muncul output dari program
+  ((Shorcut ctrl+shift+enter yg selama ini digunakan pada notepad++ sebenarnya merujuk ke proses ini,
+    namun diringkas))
+  ((console di notepad++ juga sebenernya ngelink ke cmd))
+
+(Gambar 6)
+>> pada folder tersebut sudah tersedia output berupa executable file untuk program yang kita buat. 
+
+>> SETIAP MELAKUKAN PERUBAHAN PADA CODE, SAVE DAN LAKUKAN KOMPILASI (PROSES INI) KEMBALI
+   BARU KELUARAN PROGRAM AKAN BERUBAH SESUAI CODE YANG BARU SAJA DIUBAH

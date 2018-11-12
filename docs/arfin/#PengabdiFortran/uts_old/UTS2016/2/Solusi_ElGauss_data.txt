@@ -1,0 +1,30 @@
+
+ Matriks yang diinput : 
+ Ukuran : 3 variabel
+
+ Matriks A : 
+ -30. 20. 0.
+ 0. -16.666666666666668 10.
+ 0. 0. -4.
+
+ Matriks B : 
+ -19.62
+ -42.51
+ -50.031
+
+ ===Hasil Eliminasi Gauss===
+
+ Matriks A : 
+ -30. 20. 0.
+ 0. -16.666666666666668 10.
+ 0. 0. -4.
+
+ Matriks B : 
+ -19.62
+ -42.51
+ -50.031
+
+ Solusi sistem persamaan:
+ X( 1 )=  7.3575
+ X( 2 )=  10.05525
+ X( 3 )=  12.50775

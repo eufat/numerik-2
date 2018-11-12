@@ -1,0 +1,2 @@
+cara cari determinan : determinan L dikali determinan U
+determinan L = diagonal utama dikali semua
