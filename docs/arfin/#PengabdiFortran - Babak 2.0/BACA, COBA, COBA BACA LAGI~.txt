@@ -1,0 +1,186 @@
+DOKUMENTASI SUBROUTINE TEMPUR UTS FISKOM2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:: CARA MENGGUNAKAN ::
+	== CARA CTRL+SHIFT+ENTER DI NOTEPAD++ (bila menggunakan) SUDAH TIDAK DAPAT DIGUNAKAN BILA MENGGUNAKAN SUBROUTINE ==
+
+	harus dilakukan kompilasi main program beserta file2 subroutine yang digunakan
+	caranya? lihat folder pic!
+		 
+	#	SETIAP MELAKUKAN PERUBAHAN PADA CODE, SAVE DAN LAKUKAN KOMPILASI KEMBALI
+   	#	  BARU KELUARAN PROGRAM AKAN BERUBAH SESUAI CODE YANG BARU SAJA DIUBAH
+
+
+	format input di cmd :
+	g95 -o nama_file_output nama_file_subroutine1 nama_file_subroutine2 .. dst nama_file_main_program
+
+##
+
+Berikut keterangan seluruh subroutine yang ada, CONTOH PENGGUNAAN SILAKAN CEK PADA FOLDER MASING2 TERSEDIA FILE "hitung_XXX.f95"
+						PERHATIKAN PENULISAN PROGRAM SERTA INPUT DAN OUTPUTNYA
+##
+
+:: AKAR FUNGSI ::
+	>> Variabel selain hasil => input
+	>> hasil		 => output
+
+	~ bisection(fungsi, batas_kiri, batas_kanan,itermax,toleransi,hasil)
+
+	~ false_position(fungsi, batas_kiri, batas_kanan,itermax,toleransi,hasil)
+
+	~ secant(fungsi, batas_kiri, batas_kanan,itermax,toleransi,hasil)
+
+	~ newton_raphson(fungsi, fungsi_turunan, tebakan_awal,itermax,toleransi,hasil)
+
+:: SISTEM PERSAMAAN LINEAR ::
+	>> Variabel selain Matriks_X => input
+	>> Matriks_X	  	     => output
+	
+	INGAT!  A X = B
+
+	~ elgauss(Jumlah_Data, Matriks_A, Matriks_B, Matriks_X)
+
+	~ ludcmp(Jumlah_Data, Matriks_A, Matriks_B, Matriks_X)
+
+	BILA lebih dari satu persamaan linear (pdf Metode Numerik hal 37 "Kasus Beberapa Sistem Persamaan Linear") gunakan
+
+	~ elgauss_m(Jumlah_Data, Jumlah_Sistem_Persamaan_Linear, Matriks_A, Matriks_B, Matriks_X)
+
+	~ ludcmp_m(Jumlah_Data, Jumlah_Sistem_Persamaan_Linear, Matriks_A, Matriks_B, Matriks_X)
+
+:: REGRESI (LEAST SQUARE) ::
+	>> Variabel selain matriks_koefisien => input
+	>> matriks_koefisien	  	     => output
+
+	~ regresi(Jumlah_data, data_X, data_fx, orde_polinomial, matriks_koefisien)
+		
+		Pada tampilan "Lakukan estimasi titik data?", silahkan pilih :
+		0, bila hanya ingin mencari koefisien
+		1, bila ingin mencari koefisien dan menghitung titik data. titik2 data akan tersimpan pada file
+		   hasil_regresi.txt untuk selanjutnya diplot (bila diperlukan)
+
+:: INTERPOLASI ::
+	>> TIDAK ADA VARIABEL OUTPUT, OUTPUT TERSIMPAN PADA FILE "hasil_intXXXX.txt" untuk kemudian di plot
+
+	~ interpolasi_lagrange(Jumlah_Data, Data_X, Data_Fx, Xminimum_yg_ingin_dicari, Xmaksimumm_yg_ingin_dicari, Jumlah_titik_antara_xmin~Xmax)
+
+	~ interpolasi_lagrange3(Jumlah_Data, Data_X, Data_Fx, Xminimum_yg_ingin_dicari, Xmaksimumm_yg_ingin_dicari, Jumlah_titik_antara_xmin~Xmax)
+
+	~ interpolasi_hermite3(Jumlah_Data, Data_X, Data_Fx, Xminimum_yg_ingin_dicari, Xmaksimumm_yg_ingin_dicari, Jumlah_titik_antara_xmin~Xmax)
+
+:: INTERPOLASI (FUNCTION) ::
+ ~> Digunakan untuk mencari nilai pada sebuah titik tinjau, memberikan hasil berupa nilai pada titik tersebut beserta koefisien polinomial untuk titik tersebut
+    ((special case soal UTS2016 no3))
+	
+	>> ASSIGN FUNGSI KE SEBUAH VARIABEL
+		LEBIH LANJUT CEK CONTOHNYA,
+
+	~ int_lagrange(titik_tinjau, jumlah_data, data_x, data_fx)
+
+	~ int_lagrange3(titik_tinjau, jumlah_data, data_x, data_fx)
+
+	~ int_hermite3(titik_tinjau, jumlah_data, data_x, data_fx)
+
+:: INTEGRAL ::
+~> Program Integral berupa function, assign function ke sebuah variabel! 
+~> Function akan mengembalikan :: NILAI HASIL INTEGRAL FUNGSI DARI BATAS XMIN HINGGA XMAX DENGAN PENDEKATAN N TITIK DATA
+	Pada interval xmin - xmax akan dibentuk titik x baru sejumlah N, kemudian fungsi dievaluasi pada tiap titik tersebut.
+	Selanjutnya hasil integral dihitung berdasarkan metode masing2.
+
+	~ simpson(fungsi, xmin, xmax, N)
+
+	~ trapezoid(fungsi, xmin, xmax, N)
+
+	
+	DALAM KASUS YANG PERLU DIINTEGRAL SUDAH DALAM BENTUK DATA (BUKAN LAGI FUNGSI) GUNAKAN FUNGSI INTEGRAL DATA :
+	~ trapezoid_data(data_fx, index_data_awal, index_data_akhir, selisih_antar_titik_x, jumlah_data_fx)
+
+	~ simpson_data(data_fx, index_data_awal, index_data_akhir, selisih_antar_titik_x, jumlah_data_fx)
+
+:: PERSAMAAN DIFFERENSIAL BIASA ORDE 1 :: (INITIAL VALUE PROBLEM)
+~> Mencari titik y selanjutnya (y1,y2...dst) dari fungsi gradien : y' = dy/dx = f(x,y)
+	Input : f 	  : f(x,y)
+		x0	  : nilai x di titik awal
+		y0	  : nilai y di titik awal
+		xmin,xmax : rentang x untuk pencarian nilai y
+		
+	~ euler(f, x0, y0, xmin, xmax, jumlah_titik_data)
+	~ euler_m(f, x0, y0, xmin, xmax, jumlah_titik_data)
+	~ euler_i(f, x0, y0, xmin, xmax, jumlah_titik_data)
+	~ rungekutta4_PD1(f, x0, y0, xmin, xmax, jumlah_titik_data)
+
+:: PERSAMAAN DIFFERENSIAL BIASA ORDE 2 :: (INITIAL VALUE PROBLEM)
+~> Mencari titik y selanjutnya (y1,y2...dst) dari fungsi : y'' = d2y/d2x = f(x,y,y')
+   Nilai y dicari secara bertahap dengan terlebih dahulu mencari nilai y',
+   dari nilai y' yang diperoleh dapat dicari nilai y.
+	Input : f 	  : f(x,y)
+		x0	  : nilai x di titik awal
+		y0	  : nilai y di titik awal
+		u0	  : nilai y' di titik awal ((y' dimisalkan dengan u))
+		xmin,xmax : rentang x untuk pencarian nilai y
+
+	~ euler_PD2(f, x0, y0, u0, xmin, xmax, jumlah_titik_data)
+	~ rungekutta4_PD2(f, x0, y0, u0, xmin, xmax, jumlah_titik_data)
+
+
+
+:: PERSAMAAN DIFFERENSIAL BIASA ORDE 2 :: (BOUNDED VALUE PROBLEM)
+~> Gelombang yang merambat di sepanjang tali bisa digambarkan dengan PD orde 2.
+ Jika ujung-ujung tali itu diikat sehingga tidak bisa bergerak, maka kita temui kasus PD dengan syarat batas.
+
+	Diketahui nilai x dan y di batas2. Lakukan pencarian nilai2 yang mengisi di antara batas2 tersebut!
+	Keterangan yang dibutuhkan ada di masing2 file :
+	~ findiff_jacobi.f95
+	~ findiff_gauss.f95
+	
+
+:: PERSAMAAN DIFFERENSIAL PARSIAL ::
+~> persamaan differensial parsial 2 dimensi tipe eliptik, parabolik, dan hiperbolik
+	~ PDP_Eliptik.f95
+	  Penyelesaian problem : (d2/dx2 + d2/dy2)psi(x,y) = -4pi rho(x,y)
+	  Diperlukan 4 nilai awal: 2 nilai batas pada x dan 2 nilai batas pada y
+
+	~ PDP_Parabolik.f95
+   	  Penyelesaian problem : (d2/dx2 - (1/gamma)*(d/dt))psi(x,t) = -4pi rho(x,t)
+	  Diperlukan 3 nilai awal: 2 nilai batas pada x dan nilai psi ketika t=t_awal 
+
+	~ PDP_Hiperbolik.f95
+   	  Penyelesaian problem : (d2/dx2 - (1/c2)*(d2/dt2))psi(x,t) = -4pi rho(x,t)
+	  Diperlukan 4 nilai awal: 2 nilai batas pada x, nilai psi ketika t=t_awal, dan turunan terhadap t
+
+
+:: Menghitung Eigenvalue ::
+>> Mencari eigenvalue dari matriks ukuran N x N
+   Tulis matriks dengan format seperti contoh
+   Program akan mencari nilai eigen pada rentang =>   batas_min < eigen < batas_max
+   Lebar langkah => interval pencarian, misal antara 1 ~ 10 dengan lebar_langkah=1
+		    maka akan dicari pada interval 1-2, 2-3, 3-4, dst....
+
+	>> BestPractice :: range min = -50, range max = 50, lebar_langkah = 0.01 (berdasarkan data yang tersedia)
+
+	>> Isi dari data_matrix(x).txt ada di salah satu pdf, silakan dibaca terlebih dahulu
+
+	>> Bila didapat nilai eigen sebelum dibulatkan (sebelah kiri) adalah 0 atau sebuah nilai sangat kecil (misal 1.23E-xx), maka nilai tersebut bukan merupakan eigenvalue.
+
+	>> Bila nilai eigen sebelum dan sesudah pembulatan sangat mendekati, silakan ambil nilai yang sudah dibulatkan (telah diuji dengan data_matrix(x).txt)
+
+	>> Bila nilai eigen sebelum dan sesudah dibulatkan saling berjauhan, misal 1.49999233 dengan 1, kemungkinan nilai eigen adalah 1.5
+   	NAMUN PERNYATAAN INI BELUM DAPAT DIPASTIKAN KEBENARANNYA KARENA BELUM DIUJI DENGAN KASUS DEMIKIAN,
+   	BILA ADA YANG MEMILIKI KASUS DEMIKIAN, SILAKAN BERKABAR TENTANG HASIL YANG DIPEROLEH!
+
+	>> Terdapat kemungkinan nilai eigen kembar!
+
+:: PLOT 3D di GNUPLOT ::
+	>> splot 'namadata' 
+		atau
+	>> splot 'namadata' with pm3d 
+		with pm3d ini biar smooth, kayak plot tapi with line
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!  Terdapat beberapa subroutine yang akan lebih baik bila memanggil subroutine lain. 	!!!
+!!!  Misal, subroutine regresi baiknya memanggil sub_elgauss didalamnya			!!!
+!!!  Hal tersebut tidak dilakukan (dihindari) demi kenyamanan selama ujian.		!!!
+!!!  Rawan lupa~									!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

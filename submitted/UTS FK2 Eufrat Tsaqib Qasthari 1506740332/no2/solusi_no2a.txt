@@ -1,0 +1,7 @@
+det(L) sama dengan perkalian diagonal L
+det(U) sama dengan perkalian diagonal U
+
+det(A)=det(L)*det(U)
+det(A)=(2.00*(-46.00)*(-5.39)*(-1.30)*(-46.66)) * (1*1*1*1*1)
+det(A)=30079.08904
+
