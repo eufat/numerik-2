@@ -16,7 +16,6 @@
 	N = 1000
 
 	call rungekutta4_PD2(f,x0,y0,u0,xmin,xmax,N)
-	!call euler_PD2(f,x0,y0,u0,xmin,xmax,N)
 
 
 	stop
